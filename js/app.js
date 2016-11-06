@@ -3,9 +3,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+var fbook = angular.module('foodbook', ['ionic','firebase'])
 
-.run(function($ionicPlatform) {
+fbook.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -22,3 +22,43 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+fbook.config([function($stateProvider,$urlRouterProvider) {
+  $stateProvider.state("home", {
+    url: "/",
+    templateUrl: "home.html",
+    
+  })  
+    $stateProvider.state("recList", {
+    url: "/recList",
+    templateUrl: "recList.html",
+    controller: "listController", 
+  })    
+    $stateProvider.state("singleRecipe", {
+    url: "/:id",
+    templateUrl: "singleRec.html",
+    controller: "recipeController", 
+  })
+    $stateProvider.state("add", {
+    url: "/add",
+    templateUrl: "add.html",
+    controller: "addController", 
+  })
+    $stateProvider.state("del", {
+    url: "/del",
+    templateUrl: "del.html",
+    controller: "delController", 
+  })
+    $stateProvider.state("edit", {
+    url: "/edit",
+    templateUrl: "edit.html",
+    controller: "editController", 
+  })
+    $stateProvider.state("edit/:id", {
+    url: "/edit/:id",
+    templateUrl: "editOne/:id.html",
+    controller: "recipeEditController", 
+  })
+
+  $urlRouterProvider.otherwise("/")
+}])
